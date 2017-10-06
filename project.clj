@@ -2,6 +2,8 @@
   :dependencies [[org.clojure/clojure "1.9.0-alpha17"]
 
                  [org.immutant/web "2.1.9"]
+                 [http-kit "2.2.0"]
+
                  [metosin/ring-http-response "0.9.0"]
                  [metosin/muuntaja "0.3.2"]
                  [metosin/compojure-api "2.0.0-20170926.130606-1"]
