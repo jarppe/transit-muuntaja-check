@@ -49,7 +49,7 @@
   (httpkit/run-server handler {:port 8081}))
 
 (defn jetty-server []
-  (let [server (jetty/run-jetty handler {:port 8081})]
+  (let [server (jetty/run-jetty handler {:port 8081, :join? false})]
     (fn [] (.stop server))))
 
 (defn start-server [prev-server make-server]
