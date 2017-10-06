@@ -3,6 +3,7 @@
 
                  [org.immutant/web "2.1.9"]
                  [http-kit "2.2.0"]
+                 [ring/ring-jetty-adapter "1.6.2"]
 
                  [metosin/ring-http-response "0.9.0"]
                  [metosin/muuntaja "0.3.2"]

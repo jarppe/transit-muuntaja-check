@@ -1,12 +1,17 @@
 (ns transit-check.core
   (:require [clojure.tools.logging :as log]
+
             [immutant.web :as immutant]
             [org.httpkit.server :as httpkit]
+            [ring.adapter.jetty :as jetty]
+
             [compojure.api.sweet :as sweet :refer [GET POST context]]
             [ring.util.http-response :as resp]
+
             [metosin.dates :as dates]
             metosin.edn.dates
             [metosin.transit.dates :as transit-dates]
+
             [muuntaja.core :as muuntaja])
   (:import (org.joda.time DateTime)))
 
@@ -29,10 +34,7 @@
 
 (defonce server (atom nil))
 
-(defn immutant-start-server [server-shutdown]
-  (when server-shutdown
-    (log/info "shutdown server...")
-    (server-shutdown))
+(defn immutant-server []
   (log/info "start immutant server...")
   (let [server (immutant/run
                  ; immutant needs handler to pass fn?
@@ -42,15 +44,22 @@
                   :path "/"})]
     (fn [] (immutant/stop server))))
 
-(defn httpkit-start-server [server-shutdown]
-  (when server-shutdown
-    (log/info "shutdown server...")
-    (server-shutdown))
+(defn httpkit-server []
   (log/info "start httpkit server...")
   (httpkit/run-server handler {:port 8081}))
 
-(def start-server
-  httpkit-start-server
-  #_ immutant-start-server)
+(defn jetty-server []
+  (let [server (jetty/run-jetty handler {:port 8081})]
+    (fn [] (.stop server))))
 
-(swap! server start-server)
+(defn start-server [prev-server make-server]
+  (when prev-server
+    (log/info "stopping server...")
+    (prev-server))
+  (make-server))
+
+(swap! server start-server
+       #_immutant-server
+       #_httpkit-server
+       jetty-server
+       )
