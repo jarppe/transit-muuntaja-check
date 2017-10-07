@@ -7,7 +7,7 @@
 
                  [metosin/ring-http-response "0.9.0"]
                  [metosin/muuntaja "0.3.2"]
-                 [metosin/compojure-api "2.0.0-20170926.130606-1"]
+                 [metosin/compojure-api "2.0.0-20171007.071354-2"]
                  [metosin/metosin-common "0.4.0"]
 
                  [org.clojure/tools.logging "0.4.0"]
