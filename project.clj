@@ -1,5 +1,5 @@
 (defproject transit-check "0.1.0-SNAPSHOT"
-  :dependencies [[org.clojure/clojure "1.9.0-alpha17"]
+  :dependencies [[org.clojure/clojure "1.9.0-beta2"]
 
                  [org.immutant/web "2.1.9"]
                  [http-kit "2.2.0"]
